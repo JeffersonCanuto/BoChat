@@ -1,6 +1,6 @@
 import React from "react";
 import type { Message as MessageType } from "@/types";
-import Message from "./Message";
+import Message from "../Message";
 
 import IzzyBot from "@/assets/izzybot.png";
 import BackgroundImage from "@/assets/chat-background.jpg";

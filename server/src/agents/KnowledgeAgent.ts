@@ -1,11 +1,8 @@
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { HNSWLib } from "@langchain/community/vectorstores/hnswlib";
-import { Document } from "@langchain/core/documents";
 import { formatDocumentsAsString } from "langchain/util/document";
 
 import ENV from '@src/configs/ENV';
-
-type SourceItem = { source ?: string; url?: string; title?: string }
 
 /*
  * LLM Agent that uses RAG to provide answers based on InfinitePay's help center content
@@ -38,19 +35,6 @@ class KnowledgeAgent {
 			### PERGUNTA: ${question}
 			### RESPOSTA:
 		`;
-	}
-
-	// Extract source info from retrieved docs for logging purposes
-	static extractSources(docs: Document[]):SourceItem[] {
-		return docs.map(doc => {
-			const meta = (doc.metadata ?? {}) as Record<string, any>;
-
-			return {
-				source: meta.source ?? meta.path ?? undefined,
-				url: meta.url ?? meta.source ?? undefined,
-				title: meta.title ?? meta.heading ?? undefined
-			}
-		});
 	}
 
 	// Handle incoming user message based on RAG content 

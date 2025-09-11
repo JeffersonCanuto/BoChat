@@ -16,7 +16,13 @@ class KnowledgeAgent {
 		if (!this.retrieverInitialized) {
 			const INDEX_DIR = ENV.InfinitePayIndexDir.trim() ?? "data/infinitepay_index";
 
-			this.vectorStore = await HNSWLib.load(INDEX_DIR, new OpenAIEmbeddings({ apiKey: ENV.OpenAiApiKey }));
+			this.vectorStore = await HNSWLib.load(
+				INDEX_DIR,
+				new OpenAIEmbeddings({
+					apiKey: ENV.OpenAiApiKey,
+					model: "text-embedding-ada-002"
+				})
+			);	
 			this.retrieverInitialized = true;
 		}
 

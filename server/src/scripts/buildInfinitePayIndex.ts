@@ -129,7 +129,10 @@ async function crawlInfinitePayHelpCenterLinks(startUrls:string[], maxPages:numb
         const docs = await splitter.splitDocuments(rawDocs);
 
         // 5. Generate embeddings and build vector store
-        const embeddings = new OpenAIEmbeddings({ apiKey: ENV.OpenAiApiKey });
+        const embeddings = new OpenAIEmbeddings({
+            apiKey: ENV.OpenAiApiKey,
+            model: "text-embedding-ada-002"
+        });
         const vectorStore = await HNSWLib.fromDocuments(docs, embeddings);
 
         // 6. Ensure the index folder exists

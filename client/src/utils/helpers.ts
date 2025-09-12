@@ -1,5 +1,9 @@
 import DOMPurify from "dompurify";
 
+/*
+ * <script src="https://evil-hacker.com/malicious.js">Hi</script>
+ * Becomes: "Hi"
+ */
 export function sanitizeInput(input:string):string {
     return DOMPurify.sanitize(input);
 }

@@ -6,7 +6,7 @@ import {
     AgentResponse,
     AgentWorkflow
 } from "@src/types/agents";
-import RouterAgentHelpers from "@src/utils/agents";
+import { AgentHelpers } from "@src/utils/helpers";
 
 import {
     storeUserPayload,
@@ -33,12 +33,12 @@ class RouterAgent {
                 );
                 return {};
             }
-
+            
             // 2. Store user payload in Redis
             await storeUserPayload(payload.message, payload.conversation_id, payload.user_id);
 
             // 3. Decide which Agent to use based on isMathQuery helper
-            const isMath = RouterAgentHelpers.isMathQuery(payload.message);
+            const isMath = AgentHelpers.isMathQuery(payload.message);
             const chosenAgent = isMath ? "MathAgent" : "KnowledgeAgent";
 
             // 4. Record RouterAgent's decision in workflow

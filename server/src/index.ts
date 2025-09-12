@@ -1,3 +1,6 @@
+import tracer from "dd-trace";
+tracer.init();
+
 import fs from "fs";
 import https from "https";
 import logger from 'jet-logger';

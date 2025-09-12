@@ -11,6 +11,8 @@ import {
 	retrieveConversationLabels
 } from "@src/services/conversation";
 
+import { ControllerHelpers } from "@src/utils/helpers";
+
 /**
  * Receives client payload and forwards it to RouterAgent
  */
@@ -22,8 +24,12 @@ class ChatController {
 			if (!payload.message || !payload.user_id || !payload.conversation_id) {
 				return res.status(HttpStatusCodes.BAD_REQUEST).json({ error: "Invalid request payload" });
 			}
-
-			const response = await RouterAgent.handleMessage(payload);
+			
+			// Sanitize user message before forwaring to RouterAgent
+			const { message, ...rest } = payload;
+			const newPayload = { message: ControllerHelpers.sanitizedMessage(message), ...rest };
+			
+			const response = await RouterAgent.handleMessage(newPayload);
 			return res.status(HttpStatusCodes.OK).json(response);
 		} catch(error:any) {
 			console.error("ChatController error: ", error);

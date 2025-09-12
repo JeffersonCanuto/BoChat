@@ -1,7 +1,6 @@
 /* 
  * Typing structure for chatbot Agents
  */
-
 export interface UserPayload {
     message: string;
     user_id: string;

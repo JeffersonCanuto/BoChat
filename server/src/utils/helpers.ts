@@ -1,5 +1,14 @@
-// RouterAgent helpers
-class RouterAgentHelpers {
+import sanitizeHtml from "sanitize-html";
+
+// Controller helpers
+class ControllerHelpers {
+    static sanitizedMessage(message:string):string {
+        return sanitizeHtml(message);
+    }
+}
+
+// Agent helpers
+class AgentHelpers {
     static isMathQuery(message: string):boolean {
         // Normalize message to lowercase
         const lowerMessage = message.toLowerCase();
@@ -15,4 +24,4 @@ class RouterAgentHelpers {
     }
 }
 
-export default RouterAgentHelpers;
+export { AgentHelpers, ControllerHelpers };
